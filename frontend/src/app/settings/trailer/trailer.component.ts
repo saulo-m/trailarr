@@ -11,6 +11,7 @@ import { SettingsService } from '../../services/settings.service';
   templateUrl: './trailer.component.html',
   styleUrl: './trailer.component.css'
 })
+
 export class TrailerComponent {
   settings?: Settings;
   updateResults: String[] = [];
@@ -18,6 +19,11 @@ export class TrailerComponent {
   resolution = 1080;
   subtitleLanguage = 'en';
   trueFalseOptions = [true, false];
+  plexAuthToken = undefined;
+  plexServerUrl = "http://127.0.0.1:34000";
+
+
+
   fileFormats = ["mkv", "mp4", "webm"];
   audioFormats = ["aac", "ac3", "eac3", "flac", "opus"]
   videoFormats = ["h264", "h265", "vp8", "vp9", "av1"]
@@ -35,6 +41,9 @@ export class TrailerComponent {
       this.monitorInterval = settings.monitor_interval;
       this.resolution = settings.trailer_resolution;
       this.subtitleLanguage = settings.trailer_subtitles_language;
+      this.plexAuthToken = settings.plex_auth_token;
+      this.plexServerUrl = settings.plex_server_url;
+      this.update_plex = settings.update_plex
     });
   }
 
