@@ -39,6 +39,9 @@ class Settings(BaseModel):
     trailer_remove_sponsorblocks: bool
     trailer_web_optimized: bool
     wait_for_media: bool
+    update_plex: bool
+    plex_auth_token: str
+    plex_server_url: str
 
 
 class UpdateSetting(BaseModel):

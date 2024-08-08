@@ -19,6 +19,9 @@ export interface Settings {
     trailer_remove_sponsorblocks: boolean
     trailer_web_optimized: boolean
     wait_for_media: boolean
+    update_plex: boolean
+    plex_auth_token: string
+    plex_server_url: string
 }
 
 export interface ServerStats {

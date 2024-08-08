@@ -271,5 +271,37 @@
                 </div>
             </div>
         </div>
+        <div *ngIf="settings?.update_plex" class="trailer-content">
+            <div class="content-label">
+                <label for="plex_auth_token">Plex Auth Token</label>
+                <small>Authentication token for Plex</small>
+            </div>
+            <div class="text-input">
+                <input id="plex_auth_token" type="password" [(ngModel)]="plexAuthToken" 
+                    placeholder="Plex Auth Token" autocomplete="off" tabindex="20">
+                <button *ngIf="settings?.plex_auth_token != plexAuthToken" class="primary icononly-button"
+                    id="update_plex_auth_token" tabindex="21" (click)="updateSetting('plex_auth_token', plexAuthToken)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                        <path d="M378-246 154-470l43-43 181 181 384-384 43 43-427 427Z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div *ngIf="settings?.update_plex" class="trailer-content">
+            <div class="content-label">
+                <label for="plex_server_url">Plex Server URL</label>
+                <small>URL of your Plex server</small>
+            </div>
+            <div class="text-input">
+                <input id="plex_server_url" type="text" [(ngModel)]="plexServerUrl" 
+                    placeholder="Plex Server URL" autocomplete="off" tabindex="22">
+                <button *ngIf="settings?.plex_server_url != plexServerUrl" class="primary icononly-button"
+                    id="update_plex_server_url" tabindex="23" (click)="updateSetting('plex_server_url', plexServerUrl)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                        <path d="M378-246 154-470l43-43 181 181 384-384 43 43-427 427Z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
     </section>
 </div>
