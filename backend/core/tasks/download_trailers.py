@@ -9,6 +9,7 @@ from core.radarr.database_manager import MovieDatabaseManager
 from core.sonarr.database_manager import SeriesDatabaseManager
 from core.tasks import scheduler
 
+
 logger = ModuleLogger("TrailerDownloadTasks")
 
 

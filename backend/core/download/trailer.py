@@ -5,6 +5,7 @@ import re
 import shutil
 from threading import Semaphore
 
+from update_plex import PLEX_AUTH_TOKEN
 from yt_dlp import YoutubeDL
 
 from app_logger import ModuleLogger
@@ -12,6 +13,7 @@ from config.settings import app_settings
 from core.base.database.models.helpers import MediaTrailer
 from core.download.video import download_video
 
+from plexapi.server import PlexServer
 logger = ModuleLogger("TrailersDownloader")
 
 
@@ -138,6 +140,8 @@ def download_trailer(
     try:
         if not os.path.exists(trailer_path):
             os.makedirs(trailer_path)
+        if app_settings.update_plex:     #update PMS to refresh media metadata
+            update_plex(media.title)
         return move_trailer_to_folder(output_file, trailer_path, media.title)
     except Exception as e:
         logger.error(f"Failed to move trailer to folder: {e}")
@@ -208,6 +212,24 @@ def move_trailer_to_folder(src_path: str, dst_folder_path: str, new_title: str) 
     os.chmod(dst_file_path, dst_permissions)
     return True
 
+def update_plex(mediaTitle):
+    if (app_settings.plex_auth_token and app_settings.plex_server_url):
+        try:
+            logger.info(f"Refreshing {mediaTitle} in Plex Media Server")
+            plex = PlexServer(app_settings.plex_auth_token, app_settings.plex_server_url)
+            plex_itens = plex.library.search(mediaTitle)
+            for content in plex_itens:
+                content.refresh()
+                logger.info(f"{content} updated in Plex Media Server")
+            return True
+        except:
+            logger.error("Error trying to refresh Plex Media Server")
+            return False
+    else:
+        logger.info(f"Missing server url or Token")
+        return False
+
+        
 
 def download_trailers(
     media_list: list[MediaTrailer], is_movie: bool

@@ -110,6 +110,9 @@ class _Config:
             "TRAILER_WEB_OPTIMIZED",
             "True",
         ).lower() in ["true", "1"]
+        self.update_plex = os.getenv("UPDATE_PLEX", "False").lower() in ["true", "1"]
+        self.plex_auth_token = os.getenv("PLEX_AUTH_TOKEN", None)
+        self.plex_server_url = os.getenv("PLEX_SERVER_URL", "http://localhost:32400")
 
     def as_dict(self):
         return {
@@ -133,6 +136,9 @@ class _Config:
             "server_start_time": self.server_start_time,
             "version": self.version,
             "wait_for_media": self.wait_for_media,
+            "update_plex": self.update_plex,
+            "plex_auth_token": self.plex_auth_token,
+            "plex_server_url": self.plex_server_url
         }
 
     @property
@@ -194,6 +200,7 @@ class _Config:
         self._database_url = value
         self._save_to_env("DATABASE_URL", self._database_url)
 
+
     @property
     def monitor_enabled(self):
         """Monitor enabled for the application. \n
@@ -218,6 +225,50 @@ class _Config:
         value = max(10, value)  # Minimum interval is 10 minutes
         self._monitor_interval = value
         self._save_to_env("MONITOR_INTERVAL", self._monitor_interval)
+
+    @property
+    def update_plex(self):
+        """
+        Check if PMS should be updated after a sucessful download.
+        
+        Default is False
+        """
+        return self._update_plex
+        
+    @update_plex.setter
+    def update_plex(self, value: bool):
+        self._update_plex = value
+        self._save_to_env("UPDATE_PLEX", self._update_plex)
+
+    @property
+    def plex_auth_token(self):
+        """
+        Get or set the Plex authentication token for the application.
+        
+        Default is None.
+        Valid values are any valid authentication token.
+        """
+        return self._plex_auth_token
+        
+    @plex_auth_token.setter
+    def plex_auth_token(self, value: str):
+        self._plex_auth_token = value
+        self._save_to_env("PLEX_AUTH_TOKEN", self._plex_auth_token)
+
+    @property
+    def plex_server_url(self):
+        """
+        Get or set the Plex server URL for the application.
+        
+        Default is 'http://localhost:32400'.
+        Valid values are any valid URL.
+        """
+        return self._plex_server_url
+        
+    @plex_server_url.setter
+    def plex_server_url(self, value: str):
+        self._plex_server_url = value
+        self._save_to_env("PLEX_SERVER_URL", self._plex_server_url)
 
     @property
     def wait_for_media(self):
