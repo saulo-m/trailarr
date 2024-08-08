@@ -5,7 +5,6 @@ import re
 import shutil
 from threading import Semaphore
 
-from update_plex import PLEX_AUTH_TOKEN
 from yt_dlp import YoutubeDL
 
 from app_logger import ModuleLogger

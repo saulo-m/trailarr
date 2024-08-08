@@ -271,17 +271,19 @@
                 </div>
             </div>
         </div>
-        <div class="content-label">
-            <label for="update_plex">Refresh Plex Media</label>
-            <small>Auto refresh content in Plex Media Server after a download.</small>
-        </div>
-        <div id="update_plex" class="options-bar">
-            <div *ngFor="let option of trueFalseOptions" class="option" tabindex="2"
-                [class.selected]="option === settings?.update_plex"
-                (click)="updateSetting('update_plex', option)"
-                (keydown.enter)="updateSetting('update_plex', option)"
-                (keydown.space)="updateSetting('update_plex', option)">
-                {{option}}
+        <div class="trailer-content">
+            <div class="content-label">
+                <label for="update_plex">Refresh Plex Media</label>
+                <small>Auto refresh content in Plex Media Server after a download.</small>
+            </div>
+            <div id="update_plex" class="options-bar">
+                <div *ngFor="let option of trueFalseOptions" class="option" tabindex="19"
+                    [class.selected]="option === settings?.update_plex"
+                    (click)="updateSetting('update_plex', option)"
+                    (keydown.enter)="updateSetting('update_plex', option)"
+                    (keydown.space)="updateSetting('update_plex', option)">
+                    {{option}}
+                </div>
             </div>
         </div>
         <div *ngIf="settings?.update_plex" class="trailer-content">

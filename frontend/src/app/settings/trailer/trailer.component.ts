@@ -19,8 +19,9 @@ export class TrailerComponent {
   resolution = 1080;
   subtitleLanguage = 'en';
   trueFalseOptions = [true, false];
-  plexAuthToken = undefined;
+  plexAuthToken = "";
   plexServerUrl = "http://127.0.0.1:34000";
+  update_plex = false;
 
 
 
